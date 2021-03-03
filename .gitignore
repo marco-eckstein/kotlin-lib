@@ -1,0 +1,20 @@
+/target/
+
+### IntelliJ IDEA ###
+# See https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/tasks.xml
+.idea/jarRepositories.xml
+.idea/libraries/*.xml
+*.iml
+# See https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
+.idea/artifacts
+
+### IntelliJ IDEA SonarLint plugin ###
+.idea/sonarlint-state.xml
+.idea/sonarlint/
+
+### Gradle ###
+# See https://github.com/github/gitignore/blob/master/Gradle.gitignore
+.gradle
