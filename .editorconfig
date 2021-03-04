@@ -1,0 +1,4 @@
+[*.{kt, kts}]
+# Disable indent checking until https://youtrack.jetbrains.com/issue/KT-23275 gets resolved:
+indent_size = unset
+max_line_length = 112

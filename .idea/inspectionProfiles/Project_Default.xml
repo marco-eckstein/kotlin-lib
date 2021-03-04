@@ -1,0 +1,46 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="Destructure" enabled="true" level="INFO" enabled_by_default="true" />
+    <inspection_tool class="EnumEntryName" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="namePattern" value="[A-Z][A-Za-z\d]*" />
+    </inspection_tool>
+    <inspection_tool class="HasPlatformType" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="publicAPIOnly" value="false" />
+      <option name="reportPlatformArguments" value="true" />
+    </inspection_tool>
+    <inspection_tool class="LongLine" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="MemberVisibilityCanBePrivate" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="ObjectPropertyName" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="namePattern" value="[A-Za-z][A-Za-z\d]*" />
+    </inspection_tool>
+    <inspection_tool class="Reformat" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+    <inspection_tool class="RemoveCurlyBracesFromTemplate" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="reportWithoutWhitespace" value="true" />
+    </inspection_tool>
+    <inspection_tool class="UnusedSymbol" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="UsePropertyAccessSyntax" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="fqNameStrings">
+        <list>
+          <option value="java.net.Socket.getInputStream" />
+          <option value="java.net.Socket.getOutputStream" />
+          <option value="java.net.URLConnection.getInputStream" />
+          <option value="java.net.URLConnection.getOutputStream" />
+          <option value="java.util.concurrent.atomic.AtomicInteger.getAndIncrement" />
+          <option value="java.util.concurrent.atomic.AtomicInteger.getAndDecrement" />
+          <option value="java.util.concurrent.atomic.AtomicInteger.getAcquire" />
+          <option value="java.util.concurrent.atomic.AtomicInteger.getOpaque" />
+          <option value="java.util.concurrent.atomic.AtomicInteger.getPlain" />
+          <option value="java.util.concurrent.atomic.AtomicLong.getAndIncrement" />
+          <option value="java.util.concurrent.atomic.AtomicLong.getAndDecrement" />
+          <option value="java.util.concurrent.atomic.AtomicLong.getAcquire" />
+          <option value="java.util.concurrent.atomic.AtomicLong.getOpaque" />
+          <option value="java.util.concurrent.atomic.AtomicLong.getPlain" />
+          <option value="com.binance.api.client.BinanceApiRestClient.getExchangeInfo" />
+          <option value="com.binance.api.client.BinanceApiRestClient.getAccount" />
+          <option value="org.eclipse.rdf4j.repository.sparql.SPARQLRepository.getConnection" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

@@ -1,4 +1,4 @@
-/target/
+/build/
 
 ### IntelliJ IDEA ###
 # See https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -10,6 +10,7 @@
 *.iml
 # See https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
 .idea/artifacts
+.idea/modules.xml
 
 ### IntelliJ IDEA SonarLint plugin ###
 .idea/sonarlint-state.xml

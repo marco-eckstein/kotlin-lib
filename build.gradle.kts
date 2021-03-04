@@ -1,15 +1,37 @@
 plugins {
     kotlin("multiplatform") version "1.4.31"
+    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+    id("io.gitlab.arturbosch.detekt") version "1.15.0"
+    id("org.jetbrains.dokka") version "1.4.20"
+    id("maven-publish")
 }
 
 group = "com.marcoeckstein"
 version = "1.0-SNAPSHOT"
 
+publishing {
+    repositories {
+        maven {
+            name = "sonatypeStaging"
+            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
+            credentials(PasswordCredentials::class)
+        }
+    }
+}
+
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 kotlin {
+    targets.all {
+        compilations.all {
+            kotlinOptions {
+                allWarningsAsErrors = true
+            }
+        }
+    }
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "11"
@@ -37,7 +59,6 @@ kotlin {
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
-    
     sourceSets {
         val commonMain by getting
         val commonTest by getting {
@@ -62,5 +83,47 @@ kotlin {
         }
         val nativeMain by getting
         val nativeTest by getting
+    }
+}
+
+configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    enableExperimentalRules.set(true)
+    verbose.set(true)
+    // ktlint.disabled_rules:
+    // filename:
+    // Caught more precisely (with desired exceptions) with detekt.
+    // import-ordering:
+    // ktlint's order is not supported (yet) by IntelliJ.
+    // See:
+    // - https://github.com/pinterest/ktlint/issues/527
+    // - https://youtrack.jetbrains.com/issue/KT-10974
+    // no-wildcard-imports:
+    // Not desired. We want them for Java statics and Enum members.
+    // experimental:annotation:
+    // Not desired.
+    // experimental:multiline-if-else:
+    // Not desired.
+    disabledRules.set(
+        setOf(
+            "filename",
+            "import-ordering",
+            "no-wildcard-imports",
+            "experimental:annotation",
+            "experimental:multiline-if-else"
+        )
+    )
+    additionalEditorconfigFile.set(file("$projectDir/.editorconfig"))
+}
+
+detekt {
+    input = files("$projectDir/src/")
+    config = files("$projectDir/detekt-config.yml")
+    buildUponDefaultConfig = true
+}
+
+tasks {
+    withType<io.gitlab.arturbosch.detekt.Detekt> {
+        // Target version of the generated JVM bytecode. It is used for type resolution.
+        jvmTarget = "11"
     }
 }

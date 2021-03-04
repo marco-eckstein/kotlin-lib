@@ -1,0 +1,34 @@
+complexity:
+  ComplexMethod:
+    ignoreSimpleWhenEntries: true
+  LongParameterList:
+    constructorThreshold: 12
+  TooManyFunctions:
+    thresholdInFiles: 30
+    thresholdInClasses: 20
+    thresholdInInterfaces: 20
+    ignoreOverridden: true
+naming:
+  ConstructorParameterNaming:
+    privateParameterPattern: "[_a-z][A-Za-z0-9]*"
+  MatchingDeclarationName:
+    excludes:
+      "**/*Annotations.kt,**/*Delegates.kt,**/*Exceptions.kt,**/*Extensions.kt,**/*Functions.kt,**/Misc.kt"
+  TopLevelPropertyNaming:
+    constantPattern: "[A-Z][A-Za-z0-9]*"
+    propertyPattern: "[A-Za-z][A-Za-z0-9]*"
+    privatePropertyPattern: "_?[A-Za-z][A-Za-z0-9]*"
+performance:
+  SpreadOperator:
+    active: false
+style:
+  MagicNumber:
+    active: false
+  MaxLineLength:
+    active: false
+  ReturnCount:
+    max: 3
+  UnnecessaryAbstractClass:
+    active: false
+  UseIfInsteadOfWhen:
+    active: false
