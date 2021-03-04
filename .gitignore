@@ -10,6 +10,7 @@
 *.iml
 # See https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
 .idea/artifacts
+.idea/compiler.xml
 .idea/modules.xml
 
 ### IntelliJ IDEA SonarLint plugin ###
