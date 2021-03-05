@@ -19,6 +19,7 @@
       <w>jdbc</w>
       <w>jetbrains</w>
       <w>jsoup</w>
+      <w>kotest</w>
       <w>ktlint</w>
       <w>liquibase</w>
       <w>nullable</w>

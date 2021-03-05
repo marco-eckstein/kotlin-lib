@@ -65,6 +65,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation("io.kotest:kotest-assertions-core:4.4.1")
             }
         }
         val jvmMain by getting
