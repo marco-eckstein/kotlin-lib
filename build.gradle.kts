@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.marcoeckstein"
-version = "0.0.2-SNAPSHOT"
+version = "0.0.2"
 
 publishing {
     repositories {
