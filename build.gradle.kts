@@ -4,12 +4,50 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.15.0"
     id("org.jetbrains.dokka") version "1.4.20"
     id("maven-publish")
+    signing
 }
 
 group = "com.marcoeckstein"
 version = "0.0.3-SNAPSHOT"
 
 publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            pom {
+                val projectGitUrl = "https://github.com/marco-eckstein/kotlin-lib"
+                name.set(rootProject.name)
+                description.set(
+                    "A general-purpose multiplatform library. " +
+                        "Implemented in Kotlin, usable also from Java, JavaScript and more."
+                )
+                url.set(projectGitUrl)
+                inceptionYear.set("2021")
+                licenses {
+                    license {
+                        name.set("MIT")
+                        url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("marcoeckstein.com")
+                        name.set("Marco Eckstein")
+                        email.set("marco.eckstein@gmx.de")
+                        url.set("https://www.marcoeckstein.com")
+                    }
+                }
+                issueManagement {
+                    system.set("GitHub")
+                    url.set("$projectGitUrl/issues")
+                }
+                scm {
+                    connection.set("scm:git:$projectGitUrl")
+                    developerConnection.set("scm:git:$projectGitUrl")
+                    url.set(projectGitUrl)
+                }
+            }
+        }
+    }
     repositories {
         maven {
             name = "sonatypeStaging"
@@ -17,6 +55,11 @@ publishing {
             credentials(PasswordCredentials::class)
         }
     }
+}
+
+signing {
+    useGpgCmd()
+    sign(publishing.publications["maven"])
 }
 
 repositories {
