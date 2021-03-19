@@ -1,6 +1,6 @@
 package com.marcoeckstein.klib.kotlin
 
-//#region Nullable Comparable comparison
+// region Nullable Comparable comparison
 
 // See: https://stackoverflow.com/questions/29223898/
 
@@ -16,4 +16,4 @@ infix fun <T : Comparable<T>> T?.isLessThan(other: T?): Boolean? =
 infix fun <T : Comparable<T>> T?.isLessThanOrEqual(other: T?): Boolean? =
     if (this != null && other != null) this <= other else null
 
-//#endregion
+// endregion
