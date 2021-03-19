@@ -10,43 +10,51 @@ plugins {
 group = "com.marcoeckstein"
 version = "0.0.3-SNAPSHOT"
 
+val dokkaHtml by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class)
+
+val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
+    dependsOn(dokkaHtml)
+    archiveClassifier.set("javadoc")
+    from(dokkaHtml.outputDirectory)
+}
+
 publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            pom {
-                val projectGitUrl = "https://github.com/marco-eckstein/kotlin-lib"
-                name.set(rootProject.name)
-                description.set(
-                    "A general-purpose multiplatform library. " +
-                        "Implemented in Kotlin, usable also from Java, JavaScript and more."
-                )
-                url.set(projectGitUrl)
-                inceptionYear.set("2021")
-                licenses {
-                    license {
-                        name.set("MIT")
-                        url.set("https://opensource.org/licenses/MIT")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("marcoeckstein.com")
-                        name.set("Marco Eckstein")
-                        email.set("marco.eckstein@gmx.de")
-                        url.set("https://www.marcoeckstein.com")
-                    }
-                }
-                issueManagement {
-                    system.set("GitHub")
-                    url.set("$projectGitUrl/issues")
-                }
-                scm {
-                    connection.set("scm:git:$projectGitUrl")
-                    developerConnection.set("scm:git:$projectGitUrl")
-                    url.set(projectGitUrl)
+    publications.withType<MavenPublication> {
+        artifact(javadocJar)
+        pom {
+            val projectGitUrl = "https://github.com/marco-eckstein/kotlin-lib"
+            name.set(rootProject.name)
+            description.set(
+                "A general-purpose multiplatform library. " +
+                    "Implemented in Kotlin, usable also from Java, JavaScript and more."
+            )
+            url.set(projectGitUrl)
+            inceptionYear.set("2021")
+            licenses {
+                license {
+                    name.set("MIT")
+                    url.set("https://opensource.org/licenses/MIT")
                 }
             }
+            developers {
+                developer {
+                    id.set("marcoeckstein.com")
+                    name.set("Marco Eckstein")
+                    email.set("marco.eckstein@gmx.de")
+                    url.set("https://www.marcoeckstein.com")
+                }
+            }
+            issueManagement {
+                system.set("GitHub")
+                url.set("$projectGitUrl/issues")
+            }
+            scm {
+                connection.set("scm:git:$projectGitUrl")
+                developerConnection.set("scm:git:$projectGitUrl")
+                url.set(projectGitUrl)
+            }
         }
+        the<SigningExtension>().sign(this)
     }
     repositories {
         maven {
@@ -59,7 +67,6 @@ publishing {
 
 signing {
     useGpgCmd()
-    sign(publishing.publications["maven"])
 }
 
 repositories {
