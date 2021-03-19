@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.marcoeckstein"
-version = "0.0.3-SNAPSHOT"
+version = "0.0.3"
 
 val dokkaHtml by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class)
 
