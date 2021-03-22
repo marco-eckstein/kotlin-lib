@@ -1,6 +1,14 @@
 # kotlin-lib
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.marcoeckstein/kotlin-lib/badge.svg)](
+[![Actions Status](
+    https://github.com/marco-eckstein/kotlin-lib/workflows/Java%20CI%20with%20Gradle/badge.svg
+)](
+    https://github.com/marco-eckstein/kotlin-lib/actions?query=workflow%3A"Java+CI+with+Gradle"
+)
+
+[![Maven Central Status](
+    https://maven-badges.herokuapp.com/maven-central/com.marcoeckstein/kotlin-lib/badge.svg
+)](
     https://search.maven.org/search?q=g:com.marcoeckstein%20a:kotlin-lib*
 )
 
