@@ -137,33 +137,9 @@ kotlin {
     }
 }
 
-configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+ktlint {
     enableExperimentalRules.set(true)
     verbose.set(true)
-    // ktlint.disabled_rules:
-    // filename:
-    // Caught more precisely (with desired exceptions) with detekt.
-    // import-ordering:
-    // ktlint's order is not supported (yet) by IntelliJ.
-    // See:
-    // - https://github.com/pinterest/ktlint/issues/527
-    // - https://youtrack.jetbrains.com/issue/KT-10974
-    // no-wildcard-imports:
-    // Not desired. We want them for Java statics and Enum members.
-    // experimental:annotation:
-    // Not desired.
-    // experimental:multiline-if-else:
-    // Not desired.
-    disabledRules.set(
-        setOf(
-            "filename",
-            "import-ordering",
-            "no-wildcard-imports",
-            "experimental:annotation",
-            "experimental:multiline-if-else"
-        )
-    )
-    additionalEditorconfigFile.set(file("$projectDir/.editorconfig"))
 }
 
 detekt {

@@ -2,3 +2,28 @@
 # Disable indent checking until https://youtrack.jetbrains.com/issue/KT-23275 gets resolved:
 indent_size = unset
 max_line_length = 112
+
+# Ktlint-specific properties
+# See: https://github.com/pinterest/ktlint#custom-ktlint-specific-editorconfig-properties
+#
+# filename:
+# Caught more precisely (with desired exceptions) with detekt.
+#
+# import-ordering:
+# ktlint's order is not supported (yet) by IntelliJ.
+# See:
+# - https://github.com/pinterest/ktlint/issues/527
+# - https://youtrack.jetbrains.com/issue/KT-10974
+#
+# no-wildcard-imports:
+# Not desired. We want them for Java statics and Enum members.
+#
+# experimental:annotation:
+# Not desired.
+#
+# experimental:multiline-if-else:
+# Not desired.
+#
+# experimental:annotation-spacing:
+# See: https://github.com/pinterest/ktlint/issues/873
+disabled_rules = filename, import-ordering, no-wildcard-imports, experimental:annotation, experimental:multiline-if-else, experimental:annotation-spacing
