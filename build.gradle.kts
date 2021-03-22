@@ -148,9 +148,7 @@ detekt {
     buildUponDefaultConfig = true
 }
 
-tasks {
-    withType<io.gitlab.arturbosch.detekt.Detekt> {
-        // Target version of the generated JVM bytecode. It is used for type resolution.
-        jvmTarget = "11"
-    }
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
+    // Target version of the generated JVM bytecode. It is used for type resolution.
+    jvmTarget = "11"
 }
