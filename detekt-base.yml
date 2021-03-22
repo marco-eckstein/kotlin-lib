@@ -1,13 +1,17 @@
 complexity:
   ComplexMethod:
     ignoreSimpleWhenEntries: true
-  LongParameterList:
-    constructorThreshold: 12
-  TooManyFunctions:
-    thresholdInFiles: 30
-    thresholdInClasses: 20
-    thresholdInInterfaces: 20
-    ignoreOverridden: true
+exceptions:
+  TooGenericExceptionCaught:
+    exceptionNames:
+      # default minus Exception
+      - ArrayIndexOutOfBoundsException
+      - Error
+      - IllegalMonitorStateException
+      - NullPointerException
+      - IndexOutOfBoundsException
+      - RuntimeException
+      - Throwable
 naming:
   ConstructorParameterNaming:
     privateParameterPattern: "[_a-z][A-Za-z0-9]*"
@@ -25,10 +29,9 @@ style:
   MagicNumber:
     active: false
   MaxLineLength:
+    # handled by ktlint
     active: false
   ReturnCount:
     max: 3
-  UnnecessaryAbstractClass:
-    active: false
   UseIfInsteadOfWhen:
     active: false

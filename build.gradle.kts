@@ -144,7 +144,7 @@ ktlint {
 
 detekt {
     input = files("$projectDir/src/")
-    config = files("$projectDir/detekt-config.yml")
+    config = files("$projectDir/detekt-base.yml", "$projectDir/detekt-project.yml")
     buildUponDefaultConfig = true
 }
 
