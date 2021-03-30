@@ -1,3 +1,6 @@
+import io.gitlab.arturbosch.detekt.Detekt
+import org.jetbrains.dokka.gradle.DokkaTask
+
 plugins {
     kotlin("multiplatform") version "1.4.31"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
@@ -10,7 +13,7 @@ plugins {
 group = "com.marcoeckstein"
 version = "0.0.4-SNAPSHOT"
 
-val dokkaHtml by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class)
+val dokkaHtml by tasks.getting(DokkaTask::class)
 
 val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
     dependsOn(dokkaHtml)
@@ -148,7 +151,7 @@ detekt {
     buildUponDefaultConfig = true
 }
 
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
+tasks.withType<Detekt> {
     // Target version of the generated JVM bytecode. It is used for type resolution.
     jvmTarget = "11"
 }
