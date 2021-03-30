@@ -1,4 +1,5 @@
 import io.gitlab.arturbosch.detekt.Detekt
+import nl.javadude.gradle.plugins.license.DownloadLicenses
 import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
@@ -6,6 +7,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
     id("io.gitlab.arturbosch.detekt") version "1.16.0"
     id("org.jetbrains.dokka") version "1.4.20"
+    id("com.github.hierynomus.license") version "0.14.0"
     id("maven-publish")
     signing
 }
@@ -154,4 +156,27 @@ detekt {
 tasks.withType<Detekt> {
     // Target version of the generated JVM bytecode. It is used for type resolution.
     jvmTarget = "11"
+}
+
+downloadLicenses {
+    val config = configurations.create("licenses") {
+        extendsFrom(
+            *listOf("jvm", "js", "native").map { configurations[ it + "Implementation"] }.toTypedArray()
+        )
+        isCanBeResolved = true
+    }
+    dependencyConfiguration = config.name
+    includeProjectDependencies = true
+    aliases = mapOf(
+        "Apache License, Version 2.0" to listOf(
+            "The Apache License, Version 2.0",
+            "The Apache Software License, Version 2.0",
+            "Apache-2.0"
+        )
+    )
+}
+
+tasks.withType<DownloadLicenses>().single().doLast {
+    buildDir.resolve("reports/license/license-dependency.html")
+        .copyTo(rootDir.resolve("LICENSES-DEPENDENCIES.html"), overwrite = true)
 }
