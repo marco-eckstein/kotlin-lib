@@ -6,6 +6,7 @@ plugins {
     kotlin("multiplatform") version "1.4.31"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
     id("io.gitlab.arturbosch.detekt") version "1.16.0"
+    id("org.jetbrains.kotlinx.kover") version "0.6.1"
     id("org.jetbrains.dokka") version "1.4.20"
     id("com.github.hierynomus.license") version "0.14.0"
     id("maven-publish")
@@ -14,6 +15,29 @@ plugins {
 
 group = "com.marcoeckstein"
 version = "0.0.4-SNAPSHOT"
+
+kover {
+    xmlReport {
+        onCheck.set(true)
+    }
+    htmlReport {
+        onCheck.set(true)
+    }
+    verify {
+        // Even though this task is set to run on check, Kover 0.6.1 is not able to break the build.
+        // It can still be run manually.
+        onCheck.set(true)
+        rule {
+            name = "Sufficient test coverage for whole project"
+            target = kotlinx.kover.api.VerificationTarget.ALL
+            bound {
+                minValue = 80
+                counter = kotlinx.kover.api.CounterType.LINE
+                valueType = kotlinx.kover.api.VerificationValueType.COVERED_PERCENTAGE
+            }
+        }
+    }
+}
 
 val dokkaHtml by tasks.getting(DokkaTask::class)
 
