@@ -24,8 +24,6 @@ kover {
         onCheck.set(true)
     }
     verify {
-        // Even though this task is set to run on check, Kover 0.6.1 is not able to break the build.
-        // It can still be run manually.
         onCheck.set(true)
         rule {
             name = "Sufficient test coverage for whole project"
