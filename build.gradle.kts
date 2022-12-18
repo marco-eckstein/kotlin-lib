@@ -7,7 +7,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
-    id("org.jetbrains.dokka") version "1.4.20"
+    id("org.jetbrains.dokka") version "1.7.20"
     id("com.github.hierynomus.license") version "0.14.0"
     id("maven-publish")
     signing
@@ -39,6 +39,9 @@ kover {
 
 val dokkaHtml by tasks.getting(DokkaTask::class)
 
+// Putting HTML docs into the Javadocs Jar because as of version 1.7.20,
+// "Dokka Javadoc plugin currently does not support generating documentation for multiplatform project".
+// See https://github.com/Kotlin/dokka/issues/1753.
 val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
     dependsOn(dokkaHtml)
     archiveClassifier.set("javadoc")
