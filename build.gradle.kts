@@ -9,7 +9,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     id("org.jetbrains.dokka") version "1.7.20"
     id("com.github.hierynomus.license") version "0.16.1"
-    id("maven-publish")
+    `maven-publish`
     signing
 }
 
