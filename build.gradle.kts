@@ -4,7 +4,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
     kotlin("multiplatform") version "1.7.21"
-    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
     id("io.gitlab.arturbosch.detekt") version "1.16.0"
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     id("org.jetbrains.dokka") version "1.4.20"
@@ -162,6 +162,7 @@ kotlin {
 }
 
 ktlint {
+    version.set("0.44.0") // Newer versions are not working in org.jlleitschuh.gradle.ktlin:11.0.0
     enableExperimentalRules.set(true)
     verbose.set(true)
 }
