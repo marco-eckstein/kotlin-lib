@@ -5,7 +5,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 plugins {
     kotlin("multiplatform") version "1.7.21"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
-    id("io.gitlab.arturbosch.detekt") version "1.16.0"
+    id("io.gitlab.arturbosch.detekt") version "1.22.0"
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     id("org.jetbrains.dokka") version "1.4.20"
     id("com.github.hierynomus.license") version "0.14.0"
@@ -168,8 +168,8 @@ ktlint {
 }
 
 detekt {
-    input = files("$projectDir/src/")
-    config = files("$projectDir/detekt-base.yml", "$projectDir/detekt-project.yml")
+    source = files("src/")
+    config = files("detekt-base.yml", "detekt-project.yml")
     buildUponDefaultConfig = true
 }
 
