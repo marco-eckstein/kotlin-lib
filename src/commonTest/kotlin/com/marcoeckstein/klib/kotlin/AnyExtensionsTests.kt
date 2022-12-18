@@ -11,7 +11,7 @@ class AnyExtensionsTests {
     fun stringify_works() {
         "a" + nullString.stringify() shouldBe "a"
         "a" + "b".stringify() shouldBe "ab"
-        "a" + nullString.stringify { it.toUpperCase() } shouldBe "a"
-        "a" + "b".stringify { it.toUpperCase() } shouldBe "aB"
+        "a" + nullString.stringify { it.uppercase() } shouldBe "a"
+        "a" + "b".stringify { it.uppercase() } shouldBe "aB"
     }
 }

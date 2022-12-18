@@ -3,7 +3,7 @@ import nl.javadude.gradle.plugins.license.DownloadLicenses
 import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
-    kotlin("multiplatform") version "1.4.31"
+    kotlin("multiplatform") version "1.5.21"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
     id("io.gitlab.arturbosch.detekt") version "1.16.0"
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
