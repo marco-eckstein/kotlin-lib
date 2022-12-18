@@ -3,7 +3,7 @@ import nl.javadude.gradle.plugins.license.DownloadLicenses
 import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
-    kotlin("multiplatform") version "1.5.21"
+    kotlin("multiplatform") version "1.7.21"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
     id("io.gitlab.arturbosch.detekt") version "1.16.0"
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
@@ -119,10 +119,12 @@ kotlin {
     }
     js(IR) {
         browser {
+            commonWebpackConfig {
+                cssSupport.enabled = true
+            }
             testTask {
                 useKarma {
                     useChromeHeadless()
-                    webpackConfig.cssSupport.enabled = true
                 }
             }
         }
@@ -140,19 +142,12 @@ kotlin {
         val commonMain by getting
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
+                implementation(kotlin("test"))
                 implementation("io.kotest:kotest-assertions-core:4.4.1")
             }
         }
         val jvmMain by getting
-        val jvmTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit5"))
-                implementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
-            }
-        }
+        val jvmTest by getting
         val jsMain by getting
         val jsTest by getting {
             dependencies {
