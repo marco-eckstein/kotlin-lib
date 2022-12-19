@@ -101,7 +101,7 @@ signing {
 
 repositories {
     mavenCentral()
-    jcenter()
+    gradlePluginPortal()
 }
 
 kotlin {
