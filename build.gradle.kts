@@ -9,6 +9,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     id("org.jetbrains.dokka") version "1.7.20"
     id("com.github.hierynomus.license") version "0.16.1"
+    id("dev.petuska.npm.publish") version "3.1.0"
     `maven-publish`
     signing
 }
@@ -95,6 +96,21 @@ publishing {
     }
 }
 
+npmPublish {
+    registries {
+        register("npmjs") {
+            uri.set("https://registry.npmjs.org")
+        }
+    }
+    packages {
+//        named("js") {
+//            packageJson {
+//                "customField" by true
+//            }
+//        }
+    }
+}
+
 signing {
     useGpgCmd()
 }
@@ -134,6 +150,7 @@ kotlin {
                 }
             }
         }
+        binaries.library()
     }
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -145,6 +162,11 @@ kotlin {
     }
 
     sourceSets {
+        all {
+            languageSettings.apply {
+                optIn("kotlin.js.ExperimentalJsExport")
+            }
+        }
         val commonMain by getting
         val commonTest by getting {
             dependencies {
