@@ -10,47 +10,16 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     id("org.jetbrains.dokka") version "1.7.20"
     id("com.github.hierynomus.license") version "0.16.1"
-    id("dev.petuska.npm.publish") version "3.1.0"
-    `maven-publish`
     signing
+    `maven-publish`
+    id("dev.petuska.npm.publish") version "3.1.0"
 }
+
+// <editor-fold desc="Library metadata">
 
 group = "com.marcoeckstein"
 version = "0.0.4-SNAPSHOT"
 val npmPackageScope = "marco-eckstein"
-
-kover {
-    xmlReport {
-        onCheck.set(true)
-    }
-    htmlReport {
-        onCheck.set(true)
-    }
-    verify {
-        onCheck.set(true)
-        rule {
-            name = "Sufficient test coverage for whole project"
-            target = kotlinx.kover.api.VerificationTarget.ALL
-            bound {
-                minValue = 80
-                counter = kotlinx.kover.api.CounterType.LINE
-                valueType = kotlinx.kover.api.VerificationValueType.COVERED_PERCENTAGE
-            }
-        }
-    }
-}
-
-val dokkaHtml by tasks.getting(DokkaTask::class)
-
-// Putting HTML docs into the Javadocs Jar because as of version 1.7.20,
-// "Dokka Javadoc plugin currently does not support generating documentation for multiplatform project".
-// See https://github.com/Kotlin/dokka/issues/1753.
-val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
-    dependsOn(dokkaHtml)
-    archiveClassifier.set("javadoc")
-    from(dokkaHtml.outputDirectory)
-}
-
 val projectGitHubUrl = "https://github.com/marco-eckstein/${project.name}"
 val pubData = PublicationMetadata(
     name = project.name,
@@ -83,56 +52,7 @@ val pubData = PublicationMetadata(
     )
 )
 
-publishing {
-    publications.withType<MavenPublication> {
-        artifact(javadocJar)
-        pom {
-            name.set(pubData.name)
-            description.set(pubData.description)
-            url.set(pubData.url)
-            inceptionYear.set(pubData.inceptionYear.toString())
-            licenses {
-                pubData.licenses.forEach {
-                    license {
-                        name.set(it.name)
-                        url.set(it.url)
-                    }
-                }
-            }
-            developers {
-                pubData.developers.forEach {
-                    developer {
-                        id.set(it.id)
-                        name.set(it.name)
-                        email.set(it.email)
-                        url.set(it.url)
-                    }
-                }
-            }
-            issueManagement {
-                system.set(pubData.issueManagement?.system)
-                url.set(pubData.issueManagement?.url)
-            }
-            scm {
-                connection.set(pubData.scm.connection)
-                developerConnection.set(pubData.scm.developerConnection)
-                url.set(pubData.scm.url)
-            }
-        }
-        the<SigningExtension>().sign(this)
-    }
-    repositories {
-        maven {
-            name = "sonatypeStaging"
-            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
-            credentials(PasswordCredentials::class)
-        }
-    }
-}
-
-signing {
-    useGpgCmd()
-}
+// </editor-fold>
 
 repositories {
     mavenCentral()
@@ -217,6 +137,38 @@ tasks.withType<Detekt> {
     jvmTarget = "11"
 }
 
+kover {
+    xmlReport {
+        onCheck.set(true)
+    }
+    htmlReport {
+        onCheck.set(true)
+    }
+    verify {
+        onCheck.set(true)
+        rule {
+            name = "Sufficient test coverage for whole project"
+            target = kotlinx.kover.api.VerificationTarget.ALL
+            bound {
+                minValue = 80
+                counter = kotlinx.kover.api.CounterType.LINE
+                valueType = kotlinx.kover.api.VerificationValueType.COVERED_PERCENTAGE
+            }
+        }
+    }
+}
+
+val dokkaHtml by tasks.getting(DokkaTask::class)
+
+// Putting HTML docs into the Javadocs Jar because as of version 1.7.20,
+// "Dokka Javadoc plugin currently does not support generating documentation for multiplatform project".
+// See https://github.com/Kotlin/dokka/issues/1753.
+val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
+    dependsOn(dokkaHtml)
+    archiveClassifier.set("javadoc")
+    from(dokkaHtml.outputDirectory)
+}
+
 downloadLicenses {
     val config = configurations.create("licenses") {
         extendsFrom(
@@ -238,6 +190,57 @@ downloadLicenses {
 tasks.withType<DownloadLicenses>().single().doLast {
     buildDir.resolve("reports/license/license-dependency.html")
         .copyTo(rootDir.resolve("LICENSES-DEPENDENCIES.html"), overwrite = true)
+}
+
+signing {
+    useGpgCmd()
+}
+
+publishing {
+    publications.withType<MavenPublication> {
+        artifact(javadocJar)
+        pom {
+            name.set(pubData.name)
+            description.set(pubData.description)
+            url.set(pubData.url)
+            inceptionYear.set(pubData.inceptionYear.toString())
+            licenses {
+                pubData.licenses.forEach {
+                    license {
+                        name.set(it.name)
+                        url.set(it.url)
+                    }
+                }
+            }
+            developers {
+                pubData.developers.forEach {
+                    developer {
+                        id.set(it.id)
+                        name.set(it.name)
+                        email.set(it.email)
+                        url.set(it.url)
+                    }
+                }
+            }
+            issueManagement {
+                system.set(pubData.issueManagement?.system)
+                url.set(pubData.issueManagement?.url)
+            }
+            scm {
+                connection.set(pubData.scm.connection)
+                developerConnection.set(pubData.scm.developerConnection)
+                url.set(pubData.scm.url)
+            }
+        }
+        the<SigningExtension>().sign(this)
+    }
+    repositories {
+        maven {
+            name = "sonatypeStaging"
+            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
+            credentials(PasswordCredentials::class)
+        }
+    }
 }
 
 npmPublish {
