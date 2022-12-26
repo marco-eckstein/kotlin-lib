@@ -1,4 +1,5 @@
 /build/
+/buildSrc/build/
 
 ### IntelliJ IDEA ###
 # See https://intellij-support.jetbrains.com/hc/en-us/articles/206544839

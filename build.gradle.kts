@@ -1,3 +1,4 @@
+import com.marcoeckstein.klib.gradle.lib.PublicationMetadata
 import io.gitlab.arturbosch.detekt.Detekt
 import nl.javadude.gradle.plugins.license.DownloadLicenses
 import org.jetbrains.dokka.gradle.DokkaTask
@@ -9,12 +10,14 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     id("org.jetbrains.dokka") version "1.7.20"
     id("com.github.hierynomus.license") version "0.16.1"
+    id("dev.petuska.npm.publish") version "3.1.0"
     `maven-publish`
     signing
 }
 
 group = "com.marcoeckstein"
 version = "0.0.4-SNAPSHOT"
+val npmPackageScope = "marco-eckstein"
 
 kover {
     xmlReport {
@@ -48,40 +51,72 @@ val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
     from(dokkaHtml.outputDirectory)
 }
 
+val projectGitHubUrl = "https://github.com/marco-eckstein/${project.name}"
+val pubData = PublicationMetadata(
+    name = project.name,
+    description = "A general-purpose multiplatform library. " +
+        "Implemented in Kotlin, usable also from Java, JavaScript and more.",
+    url = projectGitHubUrl,
+    inceptionYear = 2021,
+    licenses = listOf(
+        PublicationMetadata.License(
+            name = "MIT",
+            url = "https://opensource.org/licenses/MIT",
+        )
+    ),
+    developers = listOf(
+        PublicationMetadata.Developer(
+            id = "marcoeckstein.com",
+            name = "Marco Eckstein",
+            email = "marco.eckstein@gmx.de",
+            url = "https://www.marcoeckstein.com",
+        )
+    ),
+    issueManagement = PublicationMetadata.IssueManagementInfo(
+        system = "GitHub",
+        url = "$projectGitHubUrl/issues",
+    ),
+    scm = PublicationMetadata.SourceCodeManagementInfo(
+        connection = "scm:git:$projectGitHubUrl",
+        developerConnection = "scm:git:$projectGitHubUrl",
+        url = projectGitHubUrl,
+    )
+)
+
 publishing {
     publications.withType<MavenPublication> {
         artifact(javadocJar)
         pom {
-            val projectGitUrl = "https://github.com/marco-eckstein/kotlin-lib"
-            name.set(rootProject.name)
-            description.set(
-                "A general-purpose multiplatform library. " +
-                    "Implemented in Kotlin, usable also from Java, JavaScript and more."
-            )
-            url.set(projectGitUrl)
-            inceptionYear.set("2021")
+            name.set(pubData.name)
+            description.set(pubData.description)
+            url.set(pubData.url)
+            inceptionYear.set(pubData.inceptionYear.toString())
             licenses {
-                license {
-                    name.set("MIT")
-                    url.set("https://opensource.org/licenses/MIT")
+                pubData.licenses.forEach {
+                    license {
+                        name.set(it.name)
+                        url.set(it.url)
+                    }
                 }
             }
             developers {
-                developer {
-                    id.set("marcoeckstein.com")
-                    name.set("Marco Eckstein")
-                    email.set("marco.eckstein@gmx.de")
-                    url.set("https://www.marcoeckstein.com")
+                pubData.developers.forEach {
+                    developer {
+                        id.set(it.id)
+                        name.set(it.name)
+                        email.set(it.email)
+                        url.set(it.url)
+                    }
                 }
             }
             issueManagement {
-                system.set("GitHub")
-                url.set("$projectGitUrl/issues")
+                system.set(pubData.issueManagement?.system)
+                url.set(pubData.issueManagement?.url)
             }
             scm {
-                connection.set("scm:git:$projectGitUrl")
-                developerConnection.set("scm:git:$projectGitUrl")
-                url.set(projectGitUrl)
+                connection.set(pubData.scm.connection)
+                developerConnection.set(pubData.scm.developerConnection)
+                url.set(pubData.scm.url)
             }
         }
         the<SigningExtension>().sign(this)
@@ -134,6 +169,7 @@ kotlin {
                 }
             }
         }
+        binaries.library()
     }
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -145,6 +181,11 @@ kotlin {
     }
 
     sourceSets {
+        all {
+            languageSettings.apply {
+                optIn("kotlin.js.ExperimentalJsExport")
+            }
+        }
         getByName("commonTest") {
             dependencies {
                 implementation(kotlin("test"))
@@ -197,4 +238,42 @@ downloadLicenses {
 tasks.withType<DownloadLicenses>().single().doLast {
     buildDir.resolve("reports/license/license-dependency.html")
         .copyTo(rootDir.resolve("LICENSES-DEPENDENCIES.html"), overwrite = true)
+}
+
+npmPublish {
+    registries {
+        register("npmjs") {
+            uri.set("https://registry.npmjs.org")
+        }
+    }
+    organization.set(npmPackageScope)
+    packages {
+        named("js") {
+            packageJson {
+                // name is already set.
+                description.set(pubData.description)
+                homepage.set(pubData.url)
+                license.set(
+                    (if (pubData.licenses.size > 1) "(" else "") +
+                        pubData.licenses.map { it.name }.joinToString(" OR ") +
+                        (if (pubData.licenses.size > 1) ")" else "")
+                )
+                author {
+                    val developer = pubData.developers.single()
+                    name.set(developer.name)
+                    email.set(developer.email)
+                    url.set(developer.url)
+                }
+                bugs {
+                    url.set(pubData.issueManagement?.url)
+                }
+                repository {
+                    url.set(pubData.scm.url)
+                }
+            }
+            files {
+                from("README.md", "LICENSE.txt")
+            }
+        }
+    }
 }
