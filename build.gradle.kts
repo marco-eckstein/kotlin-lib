@@ -85,6 +85,10 @@ kotlin {
             }
         }
         binaries.library()
+        // The package.json could be configured like this, but we do this in the npmPublish extension:
+        // compilations["main"].packageJson {
+        //     customField("name", "@$npmPackageScope/$name")
+        // }
     }
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -275,3 +279,24 @@ npmPublish {
         }
     }
 }
+
+// <editor-fold desc="Debugging">
+
+tasks.create("printRepositories") {
+    dependsOn("build")
+    group = "debugging"
+    doLast {
+        println("Repositories:")
+        project.repositories.forEach {
+            println("- ${it.name} (${it.javaClass.simpleName})")
+        }
+    }
+}
+
+// Make build/libs/ stable between builds:
+// tasks.withType<AbstractArchiveTask>().configureEach {
+//     isPreserveFileTimestamps = false
+//     isReproducibleFileOrder = true
+// }
+
+// </editor-fold>
