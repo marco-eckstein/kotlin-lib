@@ -21,7 +21,7 @@ max_line_length = 112
 # experimental:annotation:
 # Not desired.
 #
-# experimental:multiline-if-else:
+# experimental:multiline-if-else, multiline-if-else:
 # Not desired.
 #
 # experimental:annotation-spacing:
@@ -29,6 +29,8 @@ max_line_length = 112
 #
 # experimental:trailing-comma, trailing-comma
 # Not desired, because we want to allow trailing commas
-# We list both experimental:trailing-comma and trailing-comma because the IntelliJ plugin needs one,
-# the library needs the other. This is probably due to the plugin using a different version of the library.
-disabled_rules = filename, import-ordering, no-wildcard-imports, experimental:annotation, experimental:multiline-if-else, experimental:annotation-spacing, experimental:trailing-comma, trailing-comma
+#
+# For some rules, we list both the one with and the one without the "experimental:" prefix because the
+# IntelliJ plugin needs one, the Gradle plugin needs the other. This is probably due to the IntelliJ plugin
+# using a different version of the library.
+disabled_rules = filename, import-ordering, no-wildcard-imports, experimental:annotation, experimental:multiline-if-else, multiline-if-else, experimental:annotation-spacing, experimental:trailing-comma, trailing-comma
