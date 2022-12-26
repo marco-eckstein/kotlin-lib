@@ -77,11 +77,6 @@ kotlin {
     }
     js(IR) {
         browser {
-            commonWebpackConfig {
-                cssSupport {
-                    enabled = true
-                }
-            }
             testTask {
                 useKarma {
                     useChromeHeadless()
