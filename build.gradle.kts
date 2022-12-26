@@ -172,7 +172,7 @@ val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
 downloadLicenses {
     val config = configurations.create("licenses") {
         extendsFrom(
-            *listOf("jvm", "js", "native").map { configurations[ it + "Implementation"] }.toTypedArray()
+            *listOf("jvm", "js", "native").map { configurations[it + "Implementation"] }.toTypedArray()
         )
         isCanBeResolved = true
     }
