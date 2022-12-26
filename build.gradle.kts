@@ -30,7 +30,7 @@ val pubData = PublicationMetadata(
     licenses = listOf(
         PublicationMetadata.License(
             name = "MIT",
-            url = "https://opensource.org/licenses/MIT",
+            url = "https://opensource.org/licenses/MIT"
         )
     ),
     developers = listOf(
@@ -38,17 +38,17 @@ val pubData = PublicationMetadata(
             id = "marcoeckstein.com",
             name = "Marco Eckstein",
             email = "marco.eckstein@gmx.de",
-            url = "https://www.marcoeckstein.com",
+            url = "https://www.marcoeckstein.com"
         )
     ),
     issueManagement = PublicationMetadata.IssueManagementInfo(
         system = "GitHub",
-        url = "$projectGitHubUrl/issues",
+        url = "$projectGitHubUrl/issues"
     ),
     scm = PublicationMetadata.SourceCodeManagementInfo(
         connection = "scm:git:$projectGitHubUrl",
         developerConnection = "scm:git:$projectGitHubUrl",
-        url = projectGitHubUrl,
+        url = projectGitHubUrl
     )
 )
 
