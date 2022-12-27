@@ -12,7 +12,18 @@
     https://search.maven.org/search?q=g:com.marcoeckstein%20a:kotlin-lib*
 )
 
-A general-purpose multiplatform library. Implemented in Kotlin, usable also from Java, JavaScript and more.
+[![npm version](https://badge.fury.io/js/%40marco-eckstein%2Fjs-utils.svg)](
+https://badge.fury.io/js/%40marco-eckstein%2Fjs-utils
+)
+[![npm downloads](https://img.shields.io/npm/dt/@marco-eckstein/js-utils.svg)](
+https://npm-stat.com/charts.html?package=%40marco-eckstein%2Fjs-utils&from=2018-05-02
+)
+
+A general-purpose multiplatform library. Implemented in Kotlin, usable also from Java, JavaScript/TypeScript
+and more.
+
+Note however that due to the current nature of Kotlin Multiplatform, many parts of the library are not
+available from regular JavaScript/TypeScript projects.
 
 ## Usage with JVM
 
@@ -47,12 +58,22 @@ implementation 'com.marcoeckstein:kotlin-lib:$version'
 
 Use the same snippets as for a Gradle JVM project (see above).
 
-## Usage with JavaScript or Native
+## Usage with JavaScript/TypeScript
 
-I do not yet know how to publish the JavaScript and Native artifacts to the conventionally used
-repositories, e.g. npm for JavaScript.
-You can download the artifacts from the
-[Maven Central repository](https://search.maven.org/search?q=g:com.marcoeckstein%20a:kotlin-lib*),
-but you need to figure out how to incorporate them into your project.
-Please see the [Kotlin Multiplatform docs](https://kotlinlang.org/docs/multiplatform.html) for
-potentially updated information.
+```bash
+npm install --save @marco-eckstein/kotlin-lib@$version
+```
+
+```TypeScript
+import * as kotlinLib from "@marco-eckstein/kotlin-lib";
+
+# Kotlin multiplatform exports full namespaces:
+const klib = kotlinLib.com.marcoeckstein.klib
+klib.kotlin.stringify(undefined)
+```
+
+## Usage with C, Objective-C etc.
+
+I do not actively support this, but you should be able to build native binaries of this project yourself
+using Gradle.
+Please see the [Kotlin Multiplatform docs](https://kotlinlang.org/docs/multiplatform.html).
