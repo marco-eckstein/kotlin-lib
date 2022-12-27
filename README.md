@@ -1,22 +1,22 @@
 # kotlin-lib
 
 [![Actions Status](
-    https://github.com/marco-eckstein/kotlin-lib/workflows/Java%20CI%20with%20Gradle/badge.svg
+https://github.com/marco-eckstein/kotlin-lib/workflows/Java%20CI%20with%20Gradle/badge.svg
 )](
-    https://github.com/marco-eckstein/kotlin-lib/actions?query=workflow%3A"Java+CI+with+Gradle"
+https://github.com/marco-eckstein/kotlin-lib/actions?query=workflow%3A"Java+CI+with+Gradle"
 )
 
 [![Maven Central Status](
-    https://maven-badges.herokuapp.com/maven-central/com.marcoeckstein/kotlin-lib/badge.svg
+https://maven-badges.herokuapp.com/maven-central/com.marcoeckstein/kotlin-lib/badge.svg
 )](
-    https://search.maven.org/search?q=g:com.marcoeckstein%20a:kotlin-lib*
+https://search.maven.org/search?q=g:com.marcoeckstein%20a:kotlin-lib*
 )
 
-[![npm version](https://badge.fury.io/js/%40marco-eckstein%2Fjs-utils.svg)](
-https://badge.fury.io/js/%40marco-eckstein%2Fjs-utils
+[![npm version](https://badge.fury.io/js/%40marco-eckstein%2Fkotlin-lib.svg)](
+https://badge.fury.io/js/%40marco-eckstein%2Fkotlin-lib
 )
-[![npm downloads](https://img.shields.io/npm/dt/@marco-eckstein/js-utils.svg)](
-https://npm-stat.com/charts.html?package=%40marco-eckstein%2Fjs-utils&from=2018-05-02
+[![npm downloads](https://img.shields.io/npm/dt/@marco-eckstein/kotlin-lib.svg)](
+https://npm-stat.com/charts.html?package=%40marco-eckstein%2Fkotlin-lib&from=2022-12-20
 )
 
 A general-purpose multiplatform library. Implemented in Kotlin, usable also from Java, JavaScript/TypeScript
@@ -35,6 +35,7 @@ The build artifacts have been published to the
 ### Maven
 
 ```xml
+
 <dependency>
     <groupId>com.marcoeckstein</groupId>
     <artifactId>kotlin-lib-jvm</artifactId>
