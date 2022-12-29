@@ -30,6 +30,8 @@ and more.
 Note however that due to the current nature of Kotlin Multiplatform, many parts of the library are not
 available from regular JavaScript/TypeScript projects.
 
+There are [Kotlin API docs for all platforms](https://javadoc.io/doc/com.marcoeckstein/kotlin-lib).
+
 ## Usage with JVM
 
 You can use this library with any language that runs on the Java Virtual Machine: Java, Kotlin, Scala etc.
