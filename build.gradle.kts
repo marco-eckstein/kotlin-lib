@@ -18,7 +18,7 @@ plugins {
 // <editor-fold desc="Library metadata">
 
 group = "com.marcoeckstein"
-version = "0.0.4-SNAPSHOT"
+version = "0.0.4-RC3"
 val npmPackageScope = "marco-eckstein"
 val projectGitHubUrl = "https://github.com/marco-eckstein/${project.name}"
 val pubData = PublicationMetadata(
