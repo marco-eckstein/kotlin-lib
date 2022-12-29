@@ -35,7 +35,7 @@ available from regular JavaScript/TypeScript projects.
 You can use this library with any language that runs on the Java Virtual Machine: Java, Kotlin, Scala etc.
 
 The build artifacts have been published to the
-[Maven Central repository](https://search.maven.org/search?q=g:com.marcoeckstein%20a:kotlin-lib*).
+[Maven Central Repository](https://search.maven.org/search?q=g:com.marcoeckstein%20a:kotlin-lib*).
 
 ### Maven
 
@@ -104,11 +104,11 @@ This task will include these steps:
 
 - Sign the artifacts\
   A prompt will ask for the password that encrypts the GnuPG key configured in `gradle.properties`.
-- Publish the pavaScript package `build\packages\js\` to [NPM](https://www.npmjs.com/)\
+- Publish the JavaScript package `build\packages\js\` to [NPM](https://www.npmjs.com/)\
   You need to be logged in to NPM.
 - Upload the Maven artifacts (`.jar` files etc.) to the staging repository at
-- [OSS Repository Hosting](https://oss.sonatype.org/) that belongs to the username configured in
-- `gradle.properties`.
+  [OSS Repository Hosting](https://oss.sonatype.org/) that belongs to the username configured in
+  `gradle.properties`.
 
 These steps need to be performed manually:
 
